@@ -30,7 +30,7 @@ export function getPostBySlug(slug: string): BlogPost | null {
       content,
       readingTime: calculateReadingTime(content),
     }
-  } catch (error) {
+  } catch {
     // Try .md extension if .mdx doesn't exist
     try {
       const fullPath = path.join(postsDirectory, `${slug}.md`)
@@ -46,7 +46,7 @@ export function getPostBySlug(slug: string): BlogPost | null {
         content,
         readingTime: calculateReadingTime(content),
       }
-    } catch (error) {
+    } catch {
       return null
     }
   }
@@ -72,6 +72,11 @@ export function getAllPosts(): BlogPostMeta[] {
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 
   return posts
+}
+
+// getPosts는 getAllPosts의 별칭
+export function getPosts(): BlogPostMeta[] {
+  return getAllPosts()
 }
 
 export function getPostsByTag(tag: string): BlogPostMeta[] {

@@ -4,13 +4,17 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { HeaderProps } from '@/types/blog'
 
-export default function Header({ title = 'Hwiwoong Log', description = '개인 기술 블로그' }: HeaderProps) {
+export default function Header({ title = 'Hwiwoong Portfolio', description = '개발자 포트폴리오' }: HeaderProps) {
   const [isDark, setIsDark] = useState(true)
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme')
     if (savedTheme) {
       setIsDark(savedTheme === 'dark')
+    } else {
+      // 기본값을 시스템 설정에 따라 설정
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+      setIsDark(prefersDark)
     }
   }, [])
 
@@ -56,6 +60,24 @@ export default function Header({ title = 'Hwiwoong Log', description = '개인 �
               홈
             </Link>
             <Link
+              href="/about"
+              className="text-sm font-medium text-gray-700 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400"
+            >
+              About Me
+            </Link>
+            <Link
+              href="/projects"
+              className="text-sm font-medium text-gray-700 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400"
+            >
+              프로젝트
+            </Link>
+            <Link
+              href="/blog"
+              className="text-sm font-medium text-gray-700 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400"
+            >
+              개발 로그
+            </Link>
+            <Link
               href="/tags"
               className="text-sm font-medium text-gray-700 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400"
             >
@@ -63,7 +85,7 @@ export default function Header({ title = 'Hwiwoong Log', description = '개인 �
             </Link>
             <button
               onClick={toggleTheme}
-              className="rounded-lg p-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
+              className="rounded-lg p-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 transition-colors"
               aria-label="테마 토글"
             >
               {isDark ? (
