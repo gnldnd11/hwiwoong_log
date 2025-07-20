@@ -2,7 +2,8 @@
 const nextConfig = {
   output: 'export',
   basePath: '/hwiwoong_log',
-  trailingSlash: false,
+  trailingSlash: true,
+  assetPrefix: '/hwiwoong_log/',
   images: {
     unoptimized: true,
   },
